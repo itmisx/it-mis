@@ -12,7 +12,7 @@ import (
 // GenRSA 生成RSA公钥私钥证书
 // bits 秘钥长度
 // outputPath 证书保存路径
-func GenRAS(bits int, outputPath string) error {
+func GenRSA(bits int, outputPath string) error {
 	if outputPath == "" {
 		outputPath = "./"
 	}

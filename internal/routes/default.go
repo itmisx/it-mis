@@ -3,6 +3,16 @@ package routes
 import "github.com/gin-gonic/gin"
 
 func Default(router *gin.Engine) {
+	// 开放模块
+	indexGroup := router.Group("/index")
+	{
+		indexRoutes(indexGroup)
+	}
+	//
+	systemGroup := router.Group("/auth")
+	{
+		SystemRoutes(systemGroup)
+	}
 	// 项目管理
 	// projectGroup := router.Group("/project")
 	// {
