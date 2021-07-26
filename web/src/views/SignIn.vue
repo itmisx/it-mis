@@ -81,12 +81,13 @@ export default {
   background-size: 100%;
   background-color: #f0f2f5;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .box-card {
   height: 430px;
   width: 430px;
-  margin: 100px auto;
   background-color: white;
 }
 .form-input {
