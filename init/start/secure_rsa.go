@@ -2,13 +2,14 @@ package start
 
 import (
 	"errors"
-	"mis/internal/pkg"
+	"it-mis/internal/pkg/rsax"
 	"os"
 	"path"
 	"path/filepath"
 	"runtime"
 )
 
+// GenSecureRSA 生成安全RSA证书s
 func GenSecureRSA() error {
 	_, Dir, _, _ := runtime.Caller(0)
 	pwd := filepath.Dir(Dir)
@@ -20,5 +21,5 @@ func GenSecureRSA() error {
 	if _, err := os.Stat(path.Join(outputPath, "/public.pem")); !os.IsNotExist(err) {
 		return errors.New("rsa file already exists")
 	}
-	return pkg.GenRSA(1024, outputPath)
+	return rsax.GenRSA(1024, outputPath)
 }

@@ -1,11 +1,14 @@
 package routes
 
 import (
-	"mis/internal/app/system"
+	"it-mis/internal/app/system/controller"
 
 	"github.com/gin-gonic/gin"
 )
 
 func indexRoutes(rg *gin.RouterGroup) {
-	rg.GET("/sign-in", system.AccessAuth{}.SignIn)
+	login := controller.Login{}
+	rg.GET("/login", login.Login)
+	rg.GET("/logout", login.Logout)
+	rg.GET("/status", login.Status)
 }

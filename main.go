@@ -1,8 +1,8 @@
 package main
 
 import (
-	"mis/cmd"
-	"mis/init/config"
+	"it-mis/cmd"
+	"it-mis/init/config"
 )
 
 func main() {

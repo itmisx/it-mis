@@ -17,7 +17,7 @@ package cmd
 
 import (
 	"fmt"
-	"mis/init/start"
+	"it-mis/init/start"
 	"os"
 
 	"github.com/spf13/cobra"

@@ -60,8 +60,3 @@ func GenRSA(bits int, outputPath string) error {
 	}
 	return nil
 }
-
-// SendMail 发送邮件
-// mailAddr 邮件地址，支持批量
-func SendMail(mailAddr ...string) {
-}

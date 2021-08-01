@@ -83,7 +83,7 @@ export default {
   .title {
     margin-top: 5px;
     text-align: center;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
     color: #1890ff;
   }

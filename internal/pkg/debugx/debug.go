@@ -10,34 +10,34 @@ import (
 // PrintSuccess 打印信息
 // 带行号及颜色
 func PrintSuccess(msg interface{}, detail ...interface{}) {
-	Print(msg, "success", detail...)
+	print(msg, "success", detail...)
 }
 
 // PrintWarning 打印信息
 // 带行号及颜色
 func PrintWarning(msg interface{}, detail ...interface{}) {
-	Print(msg, "warning", detail...)
+	print(msg, "warning", detail...)
 }
 
 // PrintInfo 打印信息
 // 带行号及颜色
 func PrintInfo(msg interface{}, detail ...interface{}) {
-	Print(msg, "info", detail...)
+	print(msg, "info", detail...)
 }
 
 // PrintError 打印错误
 // 带行号及颜色
 func PrintError(msg interface{}, detail ...interface{}) {
-	Print(msg, "error", detail...)
+	print(msg, "error", detail...)
 }
 
-// Print 打印内容
+// print 打印内容
 // print_type, error or  info
-func Print(msg interface{}, printType string, detail ...interface{}) {
-	_, file, line, _ := runtime.Caller(1)
+func print(msg interface{}, printType string, detail ...interface{}) {
+	_, file, line, _ := runtime.Caller(2)
 	time := "[" + datetime.Date("h:i:s", -1) + "]"
 	position := file + ":" + strconv.Itoa(line)
-	errStr := fmt.Sprint(msg)
+	errStr := fmt.Sprintf("%+v", msg)
 	foreground := "37"
 	switch printType {
 	case "error":
@@ -50,19 +50,19 @@ func Print(msg interface{}, printType string, detail ...interface{}) {
 		foreground = "34"
 	}
 	// 打印时间、位置
-	PrintWithColor(time+position, foreground, "", 1, "1")
+	printWithColor(time+position, foreground, "", 1, "1")
 	// 打印错误信息
-	PrintWithColor(errStr, foreground, "", 1, "1")
+	printWithColor(errStr, foreground, "", 1, "1")
 	// 循环打印详细信息
 	for _, d := range detail {
 		dstr := fmt.Sprint(d)
-		PrintWithColor(dstr, "32", "", 1, "1")
+		printWithColor(dstr, "32", "", 1, "1")
 	}
 	// 全部信息打印结束，增加一行换行
-	PrintWithColor("", "32", "", 1, "1")
+	printWithColor("", "32", "", 1, "1")
 }
 
-// PrintWithColor 带颜色的打印
+// printWithColor 带颜色的打印
 ///
 // 前景 背景 颜色
 //
@@ -83,7 +83,7 @@ func Print(msg interface{}, printType string, detail ...interface{}) {
 //  5  闪烁
 //  7  反白显示
 //  8  不可见
-func PrintWithColor(msg string, foreground string, background string, newline int, code ...string) {
+func printWithColor(msg string, foreground string, background string, newline int, code ...string) {
 	format := "%c["
 	body := []interface{}{}
 	for _, c := range code {
