@@ -1,4 +1,4 @@
-module mis
+module it-mis
 
 go 1.16
 

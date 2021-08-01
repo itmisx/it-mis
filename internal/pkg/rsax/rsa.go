@@ -1,4 +1,4 @@
-package pkg
+package rsax
 
 import (
 	"crypto/rand"

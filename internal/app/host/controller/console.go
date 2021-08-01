@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"mis/internal/app/host/logic/console"
+	"it-mis/internal/app/host/logic/console"
 
 	"github.com/gin-gonic/gin"
 )
