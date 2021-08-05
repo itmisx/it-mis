@@ -23,6 +23,7 @@ type config struct {
 	RootPath string `json:"root_path" mapstructure:"root_path"`
 	APP      APP
 	Mysql    mysql.Config
+	Email    Email
 }
 
 // InitConfig 初始化配置

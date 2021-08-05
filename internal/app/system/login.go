@@ -36,6 +36,11 @@ func (PassedLogin) GetUser(user string, passwd string) (*model.User, error) {
 	return userExist, nil
 }
 
+// GenUserToken 生成用户令牌
+func (PassedLogin) GenUserToken(user model.User) string {
+	return ""
+}
+
 type SecureLogin struct {
 }
 
@@ -45,8 +50,9 @@ type SecureLogin struct {
 // secureToken 安全令牌
 func (SecureLogin) Login(user string, passwd string, secureToken string) (*model.User, error) {
 	var (
-		db        = mysql.NewDB()
-		userExist *model.User
+		db              = mysql.NewDB()
+		userSecureToken model.UserSecureToken
+		userExist       *model.User
 	)
 	// 验证用户名及密码
 	userExist, err := PassedLogin{}.GetUser(user, passwd)
@@ -57,5 +63,11 @@ func (SecureLogin) Login(user string, passwd string, secureToken string) (*model
 	db.Model(&model.UserSecureToken{}).
 		Where(&model.UserSecureToken{
 			UserID: userExist.ID,
-		})
+			Token:  secureToken,
+		}).
+		Take(&userSecureToken)
+	if userSecureToken.ID <= 0 {
+		return nil, errors.New("无效的安全令牌")
+	}
+	return userExist, nil
 }

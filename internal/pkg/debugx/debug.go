@@ -7,34 +7,49 @@ import (
 	"strconv"
 )
 
+// 实例化打印
+var print = Print{
+	Skip: 2,
+}
+
 // PrintSuccess 打印信息
 // 带行号及颜色
 func PrintSuccess(msg interface{}, detail ...interface{}) {
-	print(msg, "success", detail...)
+	print.Print(msg, "success", detail...)
 }
 
 // PrintWarning 打印信息
 // 带行号及颜色
 func PrintWarning(msg interface{}, detail ...interface{}) {
-	print(msg, "warning", detail...)
+	print.Print(msg, "warning", detail...)
 }
 
 // PrintInfo 打印信息
 // 带行号及颜色
 func PrintInfo(msg interface{}, detail ...interface{}) {
-	print(msg, "info", detail...)
+	print.Print(msg, "info", detail...)
 }
 
 // PrintError 打印错误
 // 带行号及颜色
 func PrintError(msg interface{}, detail ...interface{}) {
-	print(msg, "error", detail...)
+	print.Print(msg, "error", detail...)
 }
 
-// print 打印内容
+// Print 定义打印
+// Skip 默认为1，即调用Print方法的地方
+// 其值代表堆栈向上提升的层级
+type Print struct {
+	Skip int
+}
+
+// Print 打印内容
 // print_type, error or  info
-func print(msg interface{}, printType string, detail ...interface{}) {
-	_, file, line, _ := runtime.Caller(2)
+func (p Print) Print(msg interface{}, printType string, detail ...interface{}) {
+	if p.Skip <= 0 {
+		p.Skip = 2
+	}
+	_, file, line, _ := runtime.Caller(p.Skip)
 	time := "[" + datetime.Date("h:i:s", -1) + "]"
 	position := file + ":" + strconv.Itoa(line)
 	errStr := fmt.Sprintf("%+v", msg)

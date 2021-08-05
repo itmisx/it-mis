@@ -19,9 +19,10 @@ func SetDefaultTimeZone(timezone int) {
 // format 格式化  Y-m-d H:i:s
 // timestamp 时间戳，-1为当前时间戳
 // timezone 时区，nil为系统默认时区
-func Date(format string, timestamp int64, timezone ...int) string {
-	if timestamp == -1 {
-		timestamp = time.Now().Unix()
+func Date(format string, timestamp ...int64) string {
+	var ts = time.Now().Unix()
+	if len(timestamp) > 0 && timestamp[0] > 0 {
+		ts = timestamp[0]
 	}
 	// 全部转为小写
 	format = strings.ToLower(format)
@@ -33,17 +34,12 @@ func Date(format string, timestamp int64, timezone ...int) string {
 	format = strings.ReplaceAll(format, "i", "04")
 	format = strings.ReplaceAll(format, "s", "05")
 	// 时间戳转time.Time
-	tm := time.Unix(timestamp, 0)
-	// 根据时区进行转换
-	if len(timezone) == 1 {
-		var cstZone = time.FixedZone("CST", timezone[0]*3600)
+	tm := time.Unix(ts, 0)
+	// 指定时区
+	if timezone, ok := default_timezone.(int); ok {
+		var cstZone = time.FixedZone("CST", timezone*3600)
 		return tm.In(cstZone).Format(format)
-	} else if default_timezone != nil {
-		dtz, ok := default_timezone.(int)
-		if ok {
-			var cstZone = time.FixedZone("CST", dtz*3600)
-			return tm.In(cstZone).Format(format)
-		}
 	}
+	// 默认本地时区
 	return tm.Format(format)
 }
