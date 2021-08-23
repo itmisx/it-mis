@@ -5,5 +5,6 @@ import (
 )
 
 func SystemRoutes(rg *gin.RouterGroup) {
+	rg.POST("/login")
 	rg.POST("/logout")
 }

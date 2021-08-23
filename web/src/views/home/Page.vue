@@ -7,21 +7,15 @@
 <script>
 export default {
   mounted() {
-    // 获取上次路由地址
-    let router = this.$router;
-    let lastRoutePath = sessionStorage.getItem("last-route-path");
-    if (lastRoutePath) {
-      router.push(lastRoutePath);
+    let lastestRoutePath = sessionStorage.getItem("lastest_nav_selected");
+    if (lastestRoutePath) {
+      this.$router.push(lastestRoutePath);
     } else {
       // 默认
-      router.push("/home/app-list");
+      this.$router.push("/home/apps");
     }
   },
-  watch: {
-    $route: function (newRoute) {
-      sessionStorage.setItem("last-route-path", newRoute.path);
-    },
-  },
+  watch: {},
 };
 </script>
 

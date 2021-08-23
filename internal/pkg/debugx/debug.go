@@ -36,6 +36,13 @@ func PrintError(msg interface{}, detail ...interface{}) {
 	print.Print(msg, "error", detail...)
 }
 
+// PrintPanic 打印错误
+// 带行号及颜色
+func PrintPanic(msg interface{}, detail ...interface{}) {
+	print.Print(msg, "panic", detail...)
+	panic(msg)
+}
+
 // Print 定义打印
 // Skip 默认为1，即调用Print方法的地方
 // 其值代表堆栈向上提升的层级
@@ -63,6 +70,8 @@ func (p Print) Print(msg interface{}, printType string, detail ...interface{}) {
 		foreground = "33"
 	case "info":
 		foreground = "34"
+	case "panic":
+		foreground = "35"
 	}
 	// 打印时间、位置
 	printWithColor(time+position, foreground, "", 1, "1")

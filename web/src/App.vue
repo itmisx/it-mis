@@ -6,10 +6,16 @@
 
 <script>
 export default {
-  mounted() {
+  data() {
+    return {
+      spinning: false,
+      loadingTip: "loading",
+    };
+  },
+  created() {},
+  async mounted() {
     // 判断登录状态，决定进入登录页面或主页
     this.$router.push("/");
-    // this.$router.push("/home");
   },
 };
 </script>

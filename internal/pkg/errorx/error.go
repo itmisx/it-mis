@@ -19,8 +19,8 @@ func (e Error) Error() string {
 // 实例化Error
 func New(msg string, code ...int) Error {
 	var (
-		e     Error
-		print = debugx.Print{
+		e  Error
+		dp = debugx.Print{
 			Skip: 2,
 		}
 	)
@@ -31,7 +31,7 @@ func New(msg string, code ...int) Error {
 		e.Code = -1
 	}
 	//打印错误信息
-	print.Print(msg+"("+strconv.Itoa(e.Code)+")", "error")
+	dp.Print(msg+"("+strconv.Itoa(e.Code)+")", "error")
 	// 返回错误
 	return e
 }

@@ -1,6 +1,6 @@
+# 节点id，用于雪花算法
+node_id: 0
 # http服务绑定地址
 bind_port: 9000
 # rsa生成路径
 rsa_path: "./"
-# 节点id，用于雪花算法
-node_id: 0

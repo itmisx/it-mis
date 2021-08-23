@@ -1,14 +1,17 @@
 package routes
 
 import (
-	"it-mis/internal/app/system/controller"
+	"it-mis/internal/controller"
+	"it-mis/internal/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func indexRoutes(rg *gin.RouterGroup) {
-	login := controller.Login{}
-	rg.GET("/login", login.Login)
-	rg.GET("/logout", login.Logout)
-	rg.GET("/status", login.Status)
+	indexController := controller.IndexController{}
+	rg.GET("/csrf-token", indexController.CSRFToken)
+	rg.POST("/login", indexController.Login)
+	rg.Use(middleware.LoginAuth())
+	rg.Use(middleware.CSRFTokenCheck())
+	rg.POST("/logout", indexController.Logout)
 }

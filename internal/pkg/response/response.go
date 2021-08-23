@@ -24,9 +24,13 @@ func JSON(ctx *gin.Context, v interface{}, e error) {
 		errorx, ok := e.(errorx.Error)
 		// 自定义错误返回
 		if ok {
+			msg := i18n.T(lang, errorx.Code)
+			if msg == "" {
+				msg = e.Error()
+			}
 			ctx.JSON(http.StatusOK, gin.H{
 				"code": errorx.Code,
-				"msg":  i18n.T(lang, errorx.Code),
+				"msg":  msg,
 				"data": v,
 			})
 		} else {
