@@ -26,8 +26,17 @@ func SetSession(c *gin.Context, key string, value interface{}) (err error) {
 func SetCSRFToken(c *gin.Context) (CSRFToken string) {
 	// 设置csrf_token
 	CSRFToken = randx.RandString(64)
-	c.SetCookie("csrf_token", CSRFToken, 3600, "/", CookieDomain(c), false, false)
+	c.SetCookie("csrf_token", CSRFToken, 3600*24*30, "/", CookieDomain(c), false, true)
 	return CSRFToken
+}
+
+func SetUserToken(c *gin.Context, userInfo UserInfo) error {
+	// 设置csrf_token
+	userToken := genUserToken(c, userInfo)
+	if userToken != "" {
+		c.SetCookie("user_token", userToken, 3600*24*30, "/", CookieDomain(c), false, true)
+	}
+	return nil
 }
 
 // CookieDomain 计算cookie作用域domain

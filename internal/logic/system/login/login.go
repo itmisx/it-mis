@@ -5,6 +5,7 @@ import (
 	"it-mis/internal/model"
 	"it-mis/internal/pkg/encrypt"
 	"it-mis/internal/pkg/errorx"
+	"it-mis/internal/pkg/randx"
 	"time"
 
 	"github.com/gin-contrib/sessions"
@@ -169,4 +170,29 @@ func (l Login) Logout(c *gin.Context) error {
 	session.Clear()
 	session.Save()
 	return nil
+}
+
+func genUserToken(c *gin.Context, userInfo UserInfo) string {
+	token := randx.RandString(64)
+	count := db.New().Model(&model.UserToken{}).
+		Create(&model.UserToken{
+			UserID:     userInfo.ID,
+			Token:      token,
+			ExpireTime: time.Now().Unix() + 3600*24*30,
+		}).RowsAffected
+	if count > 0 {
+		return token
+	}
+	return ""
+}
+
+func ValidateUserToken(token string) bool {
+	var count int64
+	db.New().Model(&model.UserToken{}).
+		Where("token = ?", token).
+		Count(&count)
+	if count > 0 {
+		return true
+	}
+	return false
 }

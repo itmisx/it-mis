@@ -38,6 +38,8 @@ func (i IndexController) Login(c *gin.Context) {
 	}
 	// 设置session信息
 	login.SetSession(c, "user_id", userInfo.ID)
+	// 设置userToken
+	login.SetUserToken(c, *userInfo)
 	// 返回结果
 	response.JSON(c, userInfo, err)
 }
