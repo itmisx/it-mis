@@ -191,8 +191,5 @@ func ValidateUserToken(token string) bool {
 	db.New().Model(&model.UserToken{}).
 		Where("token = ?", token).
 		Count(&count)
-	if count > 0 {
-		return true
-	}
-	return false
+	return count > 0
 }
