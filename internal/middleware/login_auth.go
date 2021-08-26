@@ -16,7 +16,9 @@ func LoginAuth() gin.HandlerFunc {
 		cookie, _ := c.Cookie("user_token")
 		if !login.ValidateUserToken(cookie) {
 			response.JSON(c, nil,
-				errorx.New("无效的user_token,请重新登录!", 200004))
+				errorx.New("无效的user_token,请重新登录!", 200000, 1))
+			c.Abort()
+			return
 		}
 		// 检查session
 		session := sessions.Default(c)
@@ -25,8 +27,9 @@ func LoginAuth() gin.HandlerFunc {
 			c.Next()
 		} else {
 			response.JSON(c, nil,
-				errorx.New("无效的session,请重新登录！", 200003))
+				errorx.New("无效的session,请重新登录！", 200000, 2))
 			c.Abort()
+			return
 		}
 	}
 }

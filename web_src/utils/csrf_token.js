@@ -7,6 +7,7 @@ export const getCsrfToken = async function() {
         let data = res.data;
         if (data.code === 0 && data.data.csrf_token) {
             headers.CSRFToken = res.data.data.csrf_token;
+            console.log(123);
             // 全局ajax拦截
             import ("@/utils/interceptors.js");
         }

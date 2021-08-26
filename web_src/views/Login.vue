@@ -71,6 +71,7 @@ export default {
         passwd: this.password,
       }).then((res) => {
         if (res.code === 0) {
+          localStorage.setItem("user_token", res.data.user_token);
           this.$router.push("/home");
         }
       });
@@ -78,6 +79,7 @@ export default {
   },
   mounted() {
     let userToken = localStorage.getItem("user_token");
+    console.log(userToken);
     if (userToken) {
       this.$router.push("/home");
     } else {

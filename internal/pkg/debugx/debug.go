@@ -57,7 +57,7 @@ func (p Print) Print(msg interface{}, printType string, detail ...interface{}) {
 		p.Skip = 2
 	}
 	_, file, line, _ := runtime.Caller(p.Skip)
-	time := "[" + datetime.Date("h:i:s", -1) + "]"
+	time := "\n[" + datetime.Date("h:i:s", -1) + "]"
 	position := file + ":" + strconv.Itoa(line)
 	errStr := fmt.Sprintf("%+v", msg)
 	foreground := "37"

@@ -30,13 +30,13 @@ func SetCSRFToken(c *gin.Context) (CSRFToken string) {
 	return CSRFToken
 }
 
-func SetUserToken(c *gin.Context, userInfo UserInfo) error {
+func SetUserToken(c *gin.Context, userInfo UserInfo) (string, error) {
 	// 设置csrf_token
 	userToken := genUserToken(c, userInfo)
 	if userToken != "" {
 		c.SetCookie("user_token", userToken, 3600*24*30, "/", CookieDomain(c), false, true)
 	}
-	return nil
+	return userToken, nil
 }
 
 // CookieDomain 计算cookie作用域domain
