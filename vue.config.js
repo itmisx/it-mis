@@ -3,12 +3,10 @@ module.exports = {
     publicPath: "./",
     pages: {
         index: {
-            // page 的入口
             entry: "web_src/main.js",
-            // 模板来源
             template: "web_public/index.html",
-            // 在 dist/index.html 的输出
             filename: "index.html",
+            title: "itmis",
         },
     },
     chainWebpack: (config) => {
