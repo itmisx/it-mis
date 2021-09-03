@@ -8,5 +8,4 @@ func Default(router *gin.Engine) {
 	{
 		indexRoutes(indexGroup)
 	}
-
 }

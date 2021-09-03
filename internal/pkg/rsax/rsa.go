@@ -17,7 +17,7 @@ func GenRSA(bits int, outputPath string) error {
 		outputPath = "./"
 	}
 	if _, err := os.Stat(outputPath); os.IsNotExist(err) {
-		err := os.Mkdir(outputPath, 0777)
+		err := os.Mkdir(outputPath, 0o777)
 		if err != nil {
 			return err
 		}

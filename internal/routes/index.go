@@ -13,5 +13,6 @@ func indexRoutes(rg *gin.RouterGroup) {
 	rg.POST("/login", indexController.Login)
 	rg.Use(middleware.LoginAuth())
 	rg.Use(middleware.CSRFTokenCheck())
+	rg.GET("/login-status", indexController.LoginStatus)
 	rg.POST("/logout", indexController.Logout)
 }

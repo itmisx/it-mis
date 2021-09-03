@@ -39,7 +39,6 @@ func FileMd5(path string) (string, error) {
 		return "", err
 	}
 	return fmt.Sprintf("%x", h.Sum(nil)), nil
-
 }
 
 // FileSha256 获取文件的sha256

@@ -5,7 +5,6 @@ import (
 	"it-mis/internal/pkg/errorx"
 	"it-mis/internal/pkg/response"
 
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,16 +19,6 @@ func LoginAuth() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		// 检查session
-		session := sessions.Default(c)
-		userID := session.Get("user_id")
-		if userID != nil {
-			c.Next()
-		} else {
-			response.JSON(c, nil,
-				errorx.New("无效的session,请重新登录！", 200000, 2))
-			c.Abort()
-			return
-		}
+		c.Next()
 	}
 }

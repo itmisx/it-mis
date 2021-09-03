@@ -13,6 +13,7 @@ var langPack1 = map[string]map[interface{}]interface{}{
 		1000: "Input error",
 	},
 }
+
 var langPack2 = map[string]map[interface{}]interface{}{
 	"zh-cn": {
 		"author": "smally84",
@@ -28,6 +29,7 @@ var langPack2 = map[string]map[interface{}]interface{}{
 		},
 	},
 }
+
 var langPack3 = map[string]map[interface{}]interface{}{
 	"zh-cn": {
 		"hello{name}": "你好{name}",

@@ -11,5 +11,7 @@ var LangCode = map[string]map[interface{}]interface{}{
 		200001: "用户名或密码错误",
 		200002: "账号已被禁用",
 		// 300000 业务错误
+		// 301xxx 用户
+		301001: "用户不存在",
 	},
 }

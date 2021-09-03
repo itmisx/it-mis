@@ -37,7 +37,7 @@ func New(msg string, code ...int) Error {
 	} else {
 		e.Code = -1
 	}
-	//打印错误信息
+	// 打印错误信息
 	dp.Print(msg+"("+strconv.Itoa(e.Code)+")", "error")
 	// 返回错误
 	return e

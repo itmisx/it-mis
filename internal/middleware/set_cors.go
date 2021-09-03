@@ -23,7 +23,7 @@ import (
 func SetCors() gin.HandlerFunc {
 	conf := cors.DefaultConfig()
 	conf.AllowOriginFunc = func(origin string) bool {
-		//TODO config
+		// TODO config
 		return true
 	}
 	conf.AddAllowMethods("GET", "POST", "DELETE", "PUT", "PATCH")

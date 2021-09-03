@@ -10,13 +10,13 @@ import (
 )
 
 type SSHCli struct {
-	IP         string      //IP地址
-	Username   string      //用户名
-	Password   string      //密码
-	Port       int         //端口号
-	client     *ssh.Client //ssh客户端
+	IP         string      // IP地址
+	Username   string      // 用户名
+	Password   string      // 密码
+	Port       int         // 端口号
+	client     *ssh.Client // ssh客户端
 	session    *ssh.Session
-	LastResult string //最近一次Run的结果
+	LastResult string // 最近一次Run的结果
 	Channel    ssh.Channel
 }
 
@@ -47,7 +47,7 @@ func New(ip string, username string, password string, port ...int) *SSHCli {
 	return cli
 }
 
-//连接
+// 连接
 func (c *SSHCli) connect() error {
 	config := ssh.ClientConfig{
 		User: c.Username,
@@ -71,7 +71,7 @@ func (c *SSHCli) Run() {
 	modes := ssh.TerminalModes{
 		ssh.ECHO:          1,     // 禁用回显（0禁用，1启动）
 		ssh.TTY_OP_ISPEED: 14400, // input speed = 14.4kbaud
-		ssh.TTY_OP_OSPEED: 14400, //output speed = 14.4kbaud
+		ssh.TTY_OP_OSPEED: 14400, // output speed = 14.4kbaud
 	}
 	if err := session.RequestPty("linux", 32, 160, modes); err != nil {
 		log.Fatalf("request pty error: %s", err.Error())

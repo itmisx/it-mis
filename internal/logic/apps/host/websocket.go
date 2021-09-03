@@ -19,12 +19,12 @@ var upGrader = websocket.Upgrader{
 }
 
 func (cs Console) Connect(c *gin.Context) {
-	//升级get请求为webSocket协议
+	// 升级get请求为webSocket协议
 	conn, err := upGrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
 		return
 	}
-	//初始化ssh客户端
+	// 初始化ssh客户端
 	cs.SSHClient = New("", "", "", 22)
 	defer conn.Close()
 	w, _ := cs.SSHClient.session.StdinPipe()
@@ -41,7 +41,7 @@ func (cs Console) Connect(c *gin.Context) {
 		}
 	}()
 	for {
-		//读取conn中的数据
+		// 读取conn中的数据
 		_, message, err := conn.ReadMessage()
 		if err != nil {
 			break

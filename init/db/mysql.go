@@ -10,8 +10,7 @@ import (
 
 var _mysql_db *gorm.DB
 
-type MySql struct {
-}
+type MySql struct{}
 
 func (m MySql) InitDB(cfg config.DBConfig) error {
 	dsn := cfg.Username + ":" + cfg.Password +
@@ -44,6 +43,7 @@ func (m MySql) InitDB(cfg config.DBConfig) error {
 	_mysql_db = db
 	return nil
 }
+
 func (m MySql) NewDB() *gorm.DB {
 	return _mysql_db
 }

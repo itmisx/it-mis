@@ -2,13 +2,14 @@ package controller
 
 import (
 	"it-mis/internal/logic/system/login"
+	"it-mis/internal/logic/system/member"
+	"it-mis/internal/pkg/errorx"
 	"it-mis/internal/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
 
-type IndexController struct {
-}
+type IndexController struct{}
 
 // GetSecureToken 获取安全token
 func (i IndexController) GetSecureToken(c *gin.Context) {
@@ -17,7 +18,6 @@ func (i IndexController) GetSecureToken(c *gin.Context) {
 
 // GetSecureCode 获取安全码
 func (i IndexController) GetSecureCode(c *gin.Context) {
-
 }
 
 // 获取csrf_token
@@ -30,21 +30,46 @@ func (i IndexController) CSRFToken(c *gin.Context) {
 // Login 登录
 func (i IndexController) Login(c *gin.Context) {
 	// 登录，并获取登录用户的信息，及登录凭证
-	userInfo, err := login.Login{}.Login(c)
+	user, err := login.Login{}.Login(c)
 	//  错误返回
 	if err != nil {
 		response.JSON(c, nil, err)
 		return
 	}
-	// 设置session信息
-	login.SetSession(c, "user_id", userInfo.ID)
 	// 设置userToken
-	userToken, _ := login.SetUserToken(c, *userInfo)
+	login.SetUserToken(c, user.ID)
+	// 获取用户信息
+	userInfo, err := member.Member{}.Info(user.ID)
+	if err != nil {
+		response.JSON(c, nil, err)
+		return
+	}
 	// 返回结果
-	response.JSON(c, gin.H{
-		"user_info":  userInfo,
-		"user_token": userToken,
-	}, err)
+	response.JSON(c, userInfo, nil)
+}
+
+// LoginStatus 登录状态
+func (i IndexController) LoginStatus(c *gin.Context) {
+	// 获取user_token
+	userToken, _ := c.Cookie("user_token")
+	if userToken == "" {
+		response.JSON(c, nil, errorx.New("", 200000))
+		return
+	}
+	// 获取user_token_info
+	tokenInfo := login.GetUserTokenInfo(userToken)
+	if tokenInfo == nil {
+		response.JSON(c, nil, errorx.New("", 200000))
+		return
+	}
+	userInfo, err := member.Member{}.Info(tokenInfo.UserID)
+	// 查询用户信息
+	if err == nil {
+		response.JSON(c, userInfo, nil)
+		return
+	}
+	// 重新登录
+	response.JSON(c, nil, errorx.New("", 200000))
 }
 
 // Logout 登出

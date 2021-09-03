@@ -5,8 +5,7 @@ import (
 	"it-mis/internal/model"
 )
 
-type Config struct {
-}
+type Config struct{}
 
 // 设置配置项
 func (c Config) Set(key string, value string, encrypType string) (string, error) {
@@ -43,17 +42,14 @@ func (Config) Get(key string) (string, error) {
 	return conf.Value, nil
 }
 
-type SecureToken struct {
-}
+type SecureToken struct{}
 
 // EnableSecureLogin 启用安全登录验证
 func (SecureToken) EnableSecureLogin() {
-
 }
 
 // DisableSecureLogin 禁用安全登录验证
 func (SecureToken) DisableSecureLogin() {
-
 }
 
 // GetSecureLoginConfig 获取安全登录配置

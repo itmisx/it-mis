@@ -5,10 +5,8 @@ import (
 	"time"
 )
 
-var (
-	// 时区，如8对应东八区
-	default_timezone interface{}
-)
+// 时区，如8对应东八区
+var default_timezone interface{}
 
 // SetDefaultTimeZone 设置默认时区
 func SetDefaultTimeZone(timezone int) {
@@ -20,7 +18,7 @@ func SetDefaultTimeZone(timezone int) {
 // timestamp 时间戳，-1为当前时间戳
 // timezone 时区，nil为系统默认时区
 func Date(format string, timestamp ...int64) string {
-	var ts = time.Now().Unix()
+	ts := time.Now().Unix()
 	if len(timestamp) > 0 && timestamp[0] > 0 {
 		ts = timestamp[0]
 	}
@@ -37,7 +35,7 @@ func Date(format string, timestamp ...int64) string {
 	tm := time.Unix(ts, 0)
 	// 指定时区
 	if timezone, ok := default_timezone.(int); ok {
-		var cstZone = time.FixedZone("CST", timezone*3600)
+		cstZone := time.FixedZone("CST", timezone*3600)
 		return tm.In(cstZone).Format(format)
 	}
 	// 默认本地时区

@@ -11,8 +11,7 @@ import (
 
 var _sqlite_db *gorm.DB
 
-type SQLite struct {
-}
+type SQLite struct{}
 
 func (s SQLite) InitDB(cfg config.DBConfig) error {
 	dbPath := path.Join(pathx.RootPath, "assets", "db", "itmis.db")
