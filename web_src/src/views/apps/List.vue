@@ -17,12 +17,14 @@ import Host from "@/components/apps/list/Host.vue";
 import Monitor from "@/components/apps/list/Monitor.vue";
 import Project from "@/components/apps/list/Project.vue";
 import Wiki from "@/components/apps/list/Wiki.vue";
+import OKR from "@/components/apps/list/OKR.vue";
 export default {
 	components: {
 		Project,
 		Wiki,
 		Host,
 		Monitor,
+		OKR,
 	},
 	data() {
 		return {

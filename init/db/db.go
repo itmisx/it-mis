@@ -53,10 +53,11 @@ func AutoInstall() {
 		// 安装数据库
 		err := db.AutoMigrate(
 			&model.User{},
+			&model.UserToken{},
 			&model.UserCode{},
-			&model.LoginToken{},
 			&model.UserSecureToken{},
 			&model.SystemConfig{},
+			&model.MonitorTask{},
 		)
 		if err != nil {
 			debugx.PrintPanic(err)

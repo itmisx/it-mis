@@ -20,7 +20,7 @@ func (e Error) Error() string {
 	return e.Msg
 }
 
-// 实例化Error
+// New 实例化错误
 func New(msg string, code ...int) Error {
 	var (
 		e  Error
@@ -29,11 +29,14 @@ func New(msg string, code ...int) Error {
 		}
 	)
 	e.Msg = msg
+	// 错误码
 	if len(code) == 1 {
 		e.Code = code[0]
+		// 额外的错误码
 	} else if len(code) == 2 {
 		e.Code = code[0]
 		e.ExtraCode = &code[1]
+		// 默认的系统错误
 	} else {
 		e.Code = -1
 	}

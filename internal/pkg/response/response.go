@@ -4,13 +4,14 @@ import (
 	"it-mis/internal/pkg/errorx"
 	"it-mis/internal/pkg/i18n"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 // JSON http json格式response响应
 func JSON(ctx *gin.Context, v interface{}, e error) {
-	lang := ctx.GetHeader("Accept-Language")
+	lang := strings.Split(ctx.GetHeader("Accept-Language"),",")[0]
 	// 正常的返回
 	if e == nil {
 		ctx.JSON(http.StatusOK, gin.H{

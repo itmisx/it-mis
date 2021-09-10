@@ -2,7 +2,7 @@ package lang
 
 // LangCode 主要用于错误码
 var LangCode = map[string]map[interface{}]interface{}{
-	"zh-cn": {
+	"zh-CN": {
 		// 100000 系统错误
 		100000: "系统错误",
 		// 2***** 认证错误
@@ -13,5 +13,14 @@ var LangCode = map[string]map[interface{}]interface{}{
 		// 300000 业务错误
 		// 301xxx 用户
 		301001: "用户不存在",
+		// 302xxx 组织架构
+		// 303xxx 团队
+		// 304xxx 系统配置
+		// 305xxx 监控
+		305001: "名称不能为空",
+		305002: "监控类型不能为空",
+		305003: "监控端口有误",
+		305004: "监控地址有误",
+		305005: "新增监控失败",
 	},
 }

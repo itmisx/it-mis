@@ -15,7 +15,7 @@ type UserToken struct {
 }
 
 func (UserToken) TableName() string {
-	return "user_secure_token"
+	return "user_token"
 }
 
 // Create HOOK

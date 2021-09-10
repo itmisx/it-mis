@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func indexRoutes(rg *gin.RouterGroup) {
+func index(rg *gin.RouterGroup) {
 	indexController := controller.IndexController{}
 	rg.GET("/csrf-token", indexController.CSRFToken)
 	rg.POST("/login", indexController.Login)

@@ -1,29 +1,30 @@
 <template>
 	<div class="body">
 		<div class="tbar">
-			<a-form-item label="名称" labelAlign="left">
-				<a-input style="width: 300px; margin-right: 5px" placeholder="名称" />
-			</a-form-item>
-			<a-select
-				default-value="站点检测"
-				style="width: 150px; margin-right: 5px"
-				@change="handleChange"
-			>
+			<a-input style="width: 150px; margin-right: 5px" placeholder="名称" />
+			<a-select placeholder="任务类型" style="width: 150px; margin-right: 5px">
+				<a-select-option value="正常">全部</a-select-option>
 				<a-select-option value="站点检测">站点检测</a-select-option>
 				<a-select-option value="端口检测">端口检测</a-select-option>
 			</a-select>
-
-			<a-select
-				default-value="正常"
-				style="width: 150px; margin-right: 5px"
-				@change="handleChange"
-			>
+			<a-select placeholder="状态" style="width: 150px; margin-right: 5px">
+				<a-select-option value="正常">全部</a-select-option>
 				<a-select-option value="正常">正常</a-select-option>
 				<a-select-option value="异常">异常</a-select-option>
 			</a-select>
 			<a-button-group>
-				<a-button type="primary"><a-icon type="search" />查询</a-button>
-				<a-button type="primary"><a-icon type="plus" />新建监听</a-button>
+				<a-button type="primary" @click="getMonitorTaskList"
+					><a-icon type="search" />查询</a-button
+				>
+				<a-button
+					type="primary"
+					@click="
+						() => {
+							showEditTask = true;
+						}
+					"
+					><a-icon type="plus" />新建监听</a-button
+				>
 			</a-button-group>
 		</div>
 		<a-table :columns="columns" :data-source="data">
@@ -35,9 +36,16 @@
 				<a @click="del(record, index)">删除</a>
 			</span>
 		</a-table>
+		<!-- 编辑弹窗 -->
+		<EditTask
+			v-if="showEditTask"
+			@hideEditTask="showEditTask = false"
+		></EditTask>
 	</div>
 </template>
 <script>
+import EditTask from "@/components/apps/monitor/EditTask.vue";
+import { MonitorTaskList } from "@/api/apps/monitor.js";
 const columns = [
 	{
 		title: "名称",
@@ -99,11 +107,24 @@ export default {
 		return {
 			data,
 			columns,
+			showEditTask: false,
 		};
+	},
+	components: {
+		EditTask,
+	},
+	mounted() {
+		this.getMonitorTaskList();
 	},
 	methods: {
 		gotoApps() {
 			this.$router.push("/home/apps");
+		},
+		// 获取任务列表
+		async getMonitorTaskList() {
+			await MonitorTaskList().then((res) => {
+				console.log(res);
+			});
 		},
 		enable() {
 			alert("enable");

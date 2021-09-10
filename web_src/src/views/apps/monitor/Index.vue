@@ -22,7 +22,7 @@
 </template>
 <script>
 import { Electrocardiogram } from "@icon-park/vue";
-import TaskList from "./TaskList.vue";
+import TaskList from "@/components/apps/monitor/TaskList.vue";
 export default {
 	components: {
 		Electrocardiogram,
