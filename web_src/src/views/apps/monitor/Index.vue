@@ -50,7 +50,7 @@ export default {
 .c-header {
 	margin-left: 20px;
 	height: 60px;
-	font-size: 18px;
+	font-size: 16px;
 	display: flex;
 	display: -webkit-flex;
 	align-items: center;
